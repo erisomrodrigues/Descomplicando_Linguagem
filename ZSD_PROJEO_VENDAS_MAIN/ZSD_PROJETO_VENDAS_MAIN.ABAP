@@ -1,39 +1,42 @@
+
 REPORT ZSD_PROJETO_VENDAS_MAIN.
 
+* Criação dos tipos
 TYPES: BEGIN OF TY_PEDIDOS,
-        NUMERO_DO_PEDIDO  TYPE I,
-        VALOR_DO_PEDIDO   TYPE P DECIMALS 2,
-        DATA_CRIACAO      TYPE SY-DATUM,
-      END OF TY_PEDIDOS.
+        NUMERO_PEDIDO TYPE I,
+        DATA_PEDIDO   TYPE SY-datum,
+        VALOR_PEDIDO  TYPE P DECIMALS 2,
+  END OF ty_pedidos.
 
-DATA: LT_PEDIDOS TYPE TABLE OF TY_PEDIDOS,
-      ST_PEDIDO TYPE TY_PEDIDOS.
-
-
-ST_PEDIDO-NUMERO_DO_PEDIDO = 1.
-ST_PEDIDO-DATA_CRIACAO = '20231020'.
-ST_PEDIDO-VALOR_DO_PEDIDO = '350'.
-APPEND ST_PEDIDO TO LT_PEDIDOS.
-
-ST_PEDIDO-NUMERO_DO_PEDIDO = 2.
-ST_PEDIDO-DATA_CRIACAO = '20231021'.
-ST_PEDIDO-VALOR_DO_PEDIDO = '450'.
-APPEND ST_PEDIDO TO LT_PEDIDOS.
-
-ST_PEDIDO-NUMERO_DO_PEDIDO = 3.
-ST_PEDIDO-DATA_CRIACAO = '20231023'.
-ST_PEDIDO-VALOR_DO_PEDIDO = '550'.
-APPEND ST_PEDIDO TO LT_PEDIDOS.
+* Criação de uma tabela local e se uma Estrutura ou Work Area
+DATA: LT_PEDIDO TYPE TABLE OF TY_PEDIDOS.
+DATA: ST_PEDIDO TYPE ty_pedidos.
 
 
-WRITE: LT_PEDIDOS[ 1 ]-NUMERO_DO_PEDIDO.
+* Inserido dados na tabela
+st_pedido-numero_pedido = 1.
+st_pedido-valor_pedido = 350.
+st_pedido-data_pedido = '20231020'.
+append st_pedido to lt_pedido.
 
-WRITE: LT_PEDIDOS[ 1 ]-DATA_CRIACAO.
+st_pedido-numero_pedido = 4.
+st_pedido-valor_pedido = 350.
+st_pedido-data_pedido = '20231020'.
+append st_pedido to lt_pedido.
 
+st_pedido-numero_pedido = 3.
+st_pedido-valor_pedido = 350.
+st_pedido-data_pedido = '20231020'.
+append st_pedido to lt_pedido.
 
-LOOP AT LT_PEDIDOS INTO ST_PEDIDO.
+*Exibindo linha a linha
+*write: lt_pedido[ 1 ]-numero_pedido.
+*write: lt_pedido[ 2 ]-numero_pedido.
+*write: lt_pedido[ 3 ]-numero_pedido.
 
-
-  WRITE: ST_PEDIDO-NUMERO_DO_PEDIDO, /.
-
+*Exibindo todos de uma vez
+LOOP AT lt_pedido INTO st_pedido.
+  WRITE:  st_pedido-numero_pedido.
+  WRITE:  st_pedido-valor_pedido.
+  WRITE:  st_pedido-data_pedido,/.
 ENDLOOP.
